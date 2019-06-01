@@ -25,7 +25,7 @@ EthGetworkClient::EthGetworkClient(int worktimeout, unsigned farmRecheckPeriod)
     Json::Value jGetWork;
     jGetWork["id"] = unsigned(1);
     jGetWork["jsonrpc"] = "2.0";
-    jGetWork["method"] = "eth_getWork";
+    jGetWork["method"] = "vns_getWork";
     jGetWork["params"] = Json::Value(Json::arrayValue);
     m_jsonGetWork = std::string(Json::writeString(m_jSwBuilder, jGetWork));
 }
@@ -388,7 +388,7 @@ void EthGetworkClient::processResponse(Json::Value& JRes)
 
     // We have only theese possible ids
     // 0 or 1 as job notification
-    // 9 as response for eth_submitHashrate
+    // 9 as response for vns_submitHashrate
     // 40+ for responses to mining submissions
     if (_id == 0 || _id == 1)
     {
@@ -411,7 +411,7 @@ void EthGetworkClient::processResponse(Json::Value& JRes)
         {
             if (!JRes.isMember("result"))
             {
-                cwarn << "Missing data for eth_getWork request from " << m_conn->Host() << ":"
+                cwarn << "Missing data for vns_getWork request from " << m_conn->Host() << ":"
                       << toString(m_conn->Port());
             }
             else
